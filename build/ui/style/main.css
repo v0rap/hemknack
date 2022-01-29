@@ -1,0 +1,220 @@
+.window {
+  display: grid;
+  grid-template-rows: 24px 1fr;
+  border: 1.5px solid #989898;
+  padding: 0;
+  margin: 0;
+  border-radius: 7px;
+}
+.window > .window-titlebar {
+  border-radius: 7px 7px 0 0;
+  background: linear-gradient(#d6d6d6, #a5a5a5);
+  color: #111;
+  font-size: 10pt;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 24px;
+  text-align: center;
+  user-select: none;
+  padding: 0;
+  margin: 0;
+}
+.window > .window-titlebar > .window-titlebar-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: "Material Icons";
+  background: linear-gradient(#f00, #f66);
+  border: 1px solid #D00;
+  line-height: 14px;
+  font-size: 14px;
+  border-radius: 50%;
+  margin: 4px;
+  width: 14px;
+  height: 14px;
+}
+.window > .window-body {
+  border-radius: 0 0 7px 7px;
+  background-color: #FFF;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+.window[data-active=false] .window-titlebar.button {
+  background: linear-gradient(#a77, #baa);
+  border: 1px solid #866;
+}
+.window .resize-handle.vert {
+  left: 0;
+  width: 100%;
+  cursor: n-resize;
+}
+.window .resize-handle.br {
+  cursor: nw-resize;
+}
+.window .resize-handle.bl {
+  cursor: ne-resize;
+}
+.window .resize-handle.hor {
+  top: 0;
+  height: 100%;
+  cursor: e-resize;
+}
+.window .resize-handle {
+  position: absolute;
+}
+
+.window-titlebar-button:hover,
+.window[data-active=false] .window-titlebar-button:hover {
+  background: linear-gradient(#f11, #f99);
+}
+
+.window-titlebar-button:active,
+.window[data-active=false] .window-titlebar-button:active {
+  background: linear-gradient(#f55, #f99);
+}
+
+.window[data-holding=true].window-titlebar {
+  background: linear-gradient(#d6d6d6, #a5a5a5);
+}
+
+.window[data-active=false].window-titlebar {
+  background: linear-gradient(#c6c6c6, #959595);
+  color: #444;
+}
+
+.window[data-resize=true] * {
+  pointer-events: none;
+}
+
+.window-blocker {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.2);
+  visibility: hidden;
+}
+
+.window-blocker[data-block=true] {
+  visibility: visible;
+}
+.window-blocker[data-block=true] + .application-container {
+  pointer-events: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+}
+
+.application-container {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-areas: "t t" "s l" "s i";
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: 40px 1fr 100px;
+}
+.application-container > div {
+  border: 1px solid #000;
+}
+.application-container #toolbar {
+  grid-area: t;
+  display: flex;
+  overflow: hidden;
+}
+.application-container #toolbar .toolbar-button {
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  margin: 4px;
+  text-align: center;
+  border: none;
+  border-radius: 40px;
+}
+.application-container #toolbar .toolbar-button:hover {
+  background-color: #DDD;
+}
+.application-container #sidebar {
+  grid-area: s;
+}
+.application-container .table-container {
+  grid-area: l;
+}
+.application-container .table-container table {
+  width: 100%;
+}
+.application-container .table-container table tbody {
+  width: 100%;
+}
+.application-container .table-container table tbody tr {
+  border: 1px solid firebrick;
+}
+.application-container .table-container table tbody tr td {
+  border: 1px solid cyan;
+  padding: 0;
+  width: 100px;
+  overflow: auto;
+}
+.application-container .table-container table tbody tr td .column {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 2em;
+  width: auto;
+  height: 2em;
+  min-width: 50px;
+  padding: 0;
+  margin: 0;
+  display: block;
+}
+.application-container .table-container table tbody tr td .column:not(.download-bar) {
+  padding: 0 10px;
+}
+.application-container .table-container table tbody tr td .download-bar {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.application-container .table-container table tbody tr td .download-bar div {
+  grid-column-start: 1;
+  grid-row-start: 1;
+}
+.application-container .table-container table tbody tr td .download-bar div:not(.inner-download-bar) {
+  text-align: center;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-color: hotpink;
+  mix-blend-mode: difference;
+}
+.application-container .table-container table tbody tr td .download-bar .inner-download-bar {
+  background: hotpink;
+  height: 2em;
+}
+.application-container .legend td {
+  resize: horizontal;
+  padding: 10px;
+}
+.application-container #torrent-list .torrent .column {
+  resize: none;
+}
+.application-container #info-bar {
+  grid-area: i;
+}
+
+.window-add-torrent-input-area {
+  display: grid;
+  grid-template-columns: 1fr 50px;
+  margin: 0 10px;
+}
+
+/*# sourceMappingURL=main.css.map */

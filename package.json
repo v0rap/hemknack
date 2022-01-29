@@ -1,0 +1,23 @@
+{
+  "name": "hemknack",
+  "version": "1.0.0",
+  "description": "A electron-based torrent manager with a daemon/client architecture",
+  "main": "build/main.js",
+  "repository": "https://github.com/v0rap/hemknack",
+  "author": "Kim Karlsson <me@thvxl.se>",
+  "license": "AGPL-3.0-only",
+  "private": false,
+  "devDependencies": {
+    "@types/ws": "^8.2.2",
+    "electron": "^16.0.7",
+    "sass": "^1.49.0",
+    "typescript": "^4.5.5"
+  },
+  "scripts": {
+    "compile": "sass src/ui/style/main.scss build/ui/style/main.css",
+    "start": "yarn run compile && electron build/ui/main.js"
+  },
+  "dependencies": {
+    "ws": "^8.4.2"
+  }
+}

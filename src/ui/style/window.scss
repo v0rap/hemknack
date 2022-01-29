@@ -1,0 +1,115 @@
+$title-bar-height: 24px;
+$title-bar-font-size: 10pt;
+$window-border-radius: 7px;
+$window-border: 1.5px solid #989898;
+$title-bar-normal-color: linear-gradient(#d6d6d6, #a5a5a5);
+$title-bar-holding-color: linear-gradient(#d6d6d6, #a5a5a5);
+$title-bar-deactive-color: linear-gradient(#c6c6c6, #959595);
+$title-bar-normal-button-color: linear-gradient(#f00, #f66);
+$title-bar-hover-button-color: linear-gradient(#f55, #f99);
+$title-bar-press-button-color: linear-gradient(#f11, #f99);
+$title-bar-deactive-button-color: linear-gradient(#a77, #baa);
+$title-bar-normal-button-border: 1px solid #D00;
+$title-bar-deactive-button-border: 1px solid #866;
+$title-bar-normal-text-color: #111;
+$title-bar-hodling-text-color: #111;
+$title-bar-deactive-text-color: #444;
+
+.window {
+    display: grid;
+    grid-template-rows: $title-bar-height 1fr;
+    border: $window-border;
+    padding: 0;
+    margin: 0;
+    border-radius: $window-border-radius;
+    & > .window-titlebar {
+        border-radius: $window-border-radius $window-border-radius 0 0;
+        background: $title-bar-normal-color;
+        color: $title-bar-normal-text-color;
+        font-size: $title-bar-font-size;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: $title-bar-height;
+        text-align: center;
+        user-select: none;
+        padding: 0;
+        margin: 0;
+        & > .window-titlebar-button {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-family: 'Material Icons';
+            background: $title-bar-normal-button-color;
+            border: $title-bar-normal-button-border;
+            line-height: calc($title-bar-height) - 10px; // TODO: FIX THIS IDK WHAT IS HAPPENING
+            font-size: calc($title-bar-height) - 10px;
+            border-radius: 50%;
+            margin: 4px;
+            width: calc($title-bar-height) - 10px;
+            height: calc($title-bar-height) - 10px;
+        }
+    }
+    & > .window-body {
+        border-radius: 0 0 $window-border-radius $window-border-radius;
+        background-color: #FFF;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+    }
+    &[data-active="false"] .window-titlebar.button {
+        background: $title-bar-deactive-button-color;
+        border: $title-bar-deactive-button-border;
+    }
+    .resize-handle.vert {
+        left: 0;
+        width: 100%;
+        cursor: n-resize;
+    }
+    .resize-handle.br {
+        cursor: nw-resize;
+    }
+    .resize-handle.bl {
+        cursor: ne-resize;
+    }
+    .resize-handle.hor {
+        top: 0;
+        height: 100%;
+        cursor: e-resize;
+    }
+    .resize-handle {
+        position: absolute;
+    }
+}
+.window-titlebar-button:hover,
+.window[data-active="false"] .window-titlebar-button:hover {
+    background: $title-bar-press-button-color;
+}
+.window-titlebar-button:active,
+.window[data-active="false"] .window-titlebar-button:active {
+    background: $title-bar-hover-button-color;
+}
+.window[data-holding="true"].window-titlebar {
+    background: $title-bar-holding-color;
+}
+.window[data-active="false"].window-titlebar {
+    background: $title-bar-deactive-color;
+    color: $title-bar-deactive-text-color;
+}
+.window[data-resize="true"] * {
+    pointer-events: none;
+}
+.window-blocker {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 99;
+    background-color: rgba(0, 0, 0, 0.2);
+    visibility: hidden;
+}
+.window-blocker[data-block="true"] {
+    & + .application-container{
+        pointer-events: none;
+    }
+    visibility: visible;
+}
